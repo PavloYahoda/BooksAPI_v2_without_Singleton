@@ -8,18 +8,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 public class BaseTest {
-    public ExtractableResponse<Response> postMethod(String baseUrl, UserData payload, String bearerToken, String endpoint){
-        return RestAssured
-                .given()
-                .spec(getSpecForPost(bearerToken))
-                .when()
-                .baseUri(baseUrl)
-                .contentType(ContentType.JSON)
-                .body(payload).log().all()
-                .post(endpoint)
-                .then().log().all().extract();
-    }
-    public ExtractableResponse<Response> postMethodWithStringPayload(String baseUrl, String payload, String bearerToken, String endpoint){
+    public ExtractableResponse<Response> postMethod(String baseUrl, UserData payload, String bearerToken, String endpoint) {
         return RestAssured
                 .given()
                 .spec(getSpecForPost(bearerToken))
@@ -31,7 +20,19 @@ public class BaseTest {
                 .then().log().all().extract();
     }
 
-    public ExtractableResponse<Response> getMethod(String baseUrl, String bearerToken, String endpoint){
+    public ExtractableResponse<Response> postMethodWithStringPayload(String baseUrl, String payload, String bearerToken, String endpoint) {
+        return RestAssured
+                .given()
+                .spec(getSpecForPost(bearerToken))
+                .when()
+                .baseUri(baseUrl)
+                .contentType(ContentType.JSON)
+                .body(payload).log().all()
+                .post(endpoint)
+                .then().log().all().extract();
+    }
+
+    public ExtractableResponse<Response> getMethod(String baseUrl, String bearerToken, String endpoint) {
         return RestAssured
                 .given()
                 .spec(getSpecForPost(bearerToken))
@@ -42,18 +43,7 @@ public class BaseTest {
                 .then().log().all().extract();
     }
 
-//    public Response postResponse(String baseUrl, UserData payload, String endpoint){
-//        return RestAssured
-//                .given()
-//                .when()
-//                .baseUri(baseUrl)
-//                .contentType(ContentType.JSON)
-//                .header("Authorization", "Bearer " + userData.getToken())
-//                .body(payload).log().all()
-//                .post(endpoint);
-//    }
-
-    public ExtractableResponse<Response> deleteMethodWithStringPayload(String baseUrl, String payload, String bearerToken, String endpoint){
+    public ExtractableResponse<Response> deleteMethodWithStringPayload(String baseUrl, String payload, String bearerToken, String endpoint) {
         return RestAssured
                 .given()
                 .spec(getSpecForPost(bearerToken))
@@ -65,7 +55,7 @@ public class BaseTest {
                 .then().log().all().extract();
     }
 
-    public ExtractableResponse<Response> deleteMethodWithQueryParam(String baseUrl, String queryParam, String bearerToken, String endpoint){
+    public ExtractableResponse<Response> deleteMethodWithQueryParam(String baseUrl, String queryParam, String bearerToken, String endpoint) {
         return RestAssured
                 .given()
                 .spec(getSpecForPost(bearerToken))
@@ -77,7 +67,7 @@ public class BaseTest {
                 .then().log().all().extract();
     }
 
-    public ExtractableResponse<Response> deleteMethod(String baseUrl, String bearerToken, String endpoint){
+    public ExtractableResponse<Response> deleteMethod(String baseUrl, String bearerToken, String endpoint) {
         return RestAssured
                 .given()
                 .spec(getSpecForPost(bearerToken))
@@ -88,17 +78,29 @@ public class BaseTest {
                 .then().log().all().extract();
     }
 
-    public RequestSpecification getSpecForPost(String token){
+    public RequestSpecification getSpecForPost(String token) {
         RequestSpecBuilder specBuilder = new RequestSpecBuilder();
         specBuilder.addHeader("Content Type", "application/json");
         specBuilder.addHeader("Authorization", "Bearer " + token);
         return specBuilder.build();
     }
+}
 
-    //        Response responseUser = postResponse(Helper.BASE_URL_ACCOUNT, userData, "/User");
+
+//    public Response postResponse(String baseUrl, UserData payload, String endpoint){
+//        return RestAssured
+//                .given()
+//                .when()
+//                .baseUri(baseUrl)
+//                .contentType(ContentType.JSON)
+//                .header("Authorization", "Bearer " + userData.getToken())
+//                .body(payload).log().all()
+//                .post(endpoint);
+//    }
+//        Response responseUser = postResponse(Helper.BASE_URL_ACCOUNT, userData, "/User");
 //        responseUser.then()
 //                .assertThat().statusCode(HttpStatus.SC_CREATED)
 //                .assertThat().body(Matchers.containsString("userID"));
 //
 //        userData.setUserID(responseUser.then().extract().response().body().jsonPath().getString("userID"));
-}
+
