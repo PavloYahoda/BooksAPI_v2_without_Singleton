@@ -3,37 +3,28 @@ package pyah.booksapi;
 import java.util.List;
 
 public class UserData {
-    private static String userName;
-    private static String password;
-    private static String token;
-    private static String userID;
-    private static String userBook;
-    private static List<String> allBooks;
+    private String userName;
+    private String password;
+    private String token;
+    private String userID;
+    private String userBook;
+    private List<String> allBooks;
 
 
-    private UserData(String userName, String password) {
-        UserData.userName = userName;
-        UserData.password = password;
+    public UserData(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
     }
 
-    private static class SingletonHelper {
-        private static final UserData INSTANCE = new UserData(userName, password);
+    public UserData() {
     }
-
-    public static UserData createInstance(String name, String pass) {
-        UserData.userName = name;
-        UserData.password = pass;
-        return SingletonHelper.INSTANCE;
-    }
-
-    public static UserData getInstance(){
-        return SingletonHelper.INSTANCE;
-    }
-
-
 
     public String getUserName() {
         return userName;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getToken() {
@@ -41,7 +32,7 @@ public class UserData {
     }
 
     public void setToken(String token) {
-        UserData.token = token;
+        this.token = token;
     }
 
     public String getUserID() {
@@ -49,10 +40,11 @@ public class UserData {
     }
 
     public void setUserID(String userID) {
-        UserData.userID = userID;
+        this.userID = userID;
     }
+
     public void setAllBooks(List<String> allBooks){
-        UserData.allBooks = allBooks;
+        this.allBooks = allBooks;
     }
 
     public List<String> getAllBooks() {
@@ -60,7 +52,7 @@ public class UserData {
     }
 
     public void setUserBook(String userBook) {
-        UserData.userBook = userBook;
+        this.userBook = userBook;
     }
 
     public String getUserBook() {
